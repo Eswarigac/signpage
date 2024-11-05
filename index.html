@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Login Form</title>
+  <style>
+    /* style.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.form-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#confirmationMessage {
+  color: green;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+  </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Create Account</h2>
+        <form id="loginForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <button type="submit">Submit</button>
+        </form>
+        <p id="confirmationMessage"></p>
+    </div>
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+// script.js
+// script.js
+window.onload = function() {
+    // Initialize EmailJS with your user ID
+    emailjs.init('user_123456'); // Replace 'user_123456' with your actual EmailJS user ID
+
+    // Handle form submission
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+
+        if (name && email && phone) {
+            sendEmail(name, email, phone);
+        } else {
+            alert("Please fill in all fields.");
+        }
+    });
+};
+
+// Function to send the email using EmailJS
+// script.js
+function sendEmail() {
+    // Get form data
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+
+    // Validate form data
+    if (!name || !email || !phone) {
+        alert("Please fill in all fields.");
+        return false; // Prevent form submission
+    }
+
+    // Compose the email
+    const subject = "New User Registration";
+    const body = `
+        Name: ${name}
+        Email: ${email}
+        Phone: ${phone}
+    `;
+
+    // Create mailto link with form data
+    const mailtoLink = `mailto:eswaris2109@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Redirect to mailto link, which opens the user's default email client
+    window.location.href = mailtoLink;
+
+    // Show confirmation message to the user
+    document.getElementById('confirmationMessage').textContent = "Your information has been sent successfully!";
+    return false; // Prevent form submission (as we are using mailto link)
+}
+
+
+  </script>
+</body>
+</html>
